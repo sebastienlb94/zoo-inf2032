@@ -1,0 +1,48 @@
+{
+  "name": "zoo",
+  "version": "0.1.0",
+  "description": "ZOO project for INF2032",
+  "author": "Sebastien SOTO <sebastiensotofr@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome": "^1.1.8",
+    "@fortawesome/fontawesome-free-brands": "^5.0.13",
+    "@fortawesome/fontawesome-free-solid": "^5.0.13",
+    "@fortawesome/fontawesome-pro-light": "^5.0.13",
+    "@fortawesome/fontawesome-pro-regular": "^5.0.13",
+    "@fortawesome/fontawesome-pro-solid": "^5.0.13",
+    "@fortawesome/vue-fontawesome": "0.0.22",
+    "@nuxtjs/axios": "^5.3.1",
+    "@nuxtjs/pwa": "^2.0.8",
+    "nuxt": "^1.4.0",
+    "qonfucius-nuxt-fontawesome": "0.0.2",
+    "vue-analytics": "^5.10.4",
+    "vue-application-insights": "^1.0.3"
+  },
+  "devDependencies": {
+    "@types/node": "^9.6.5",
+    "cross-env": "^5.0.1",
+    "eslint": "^4.15.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-import-resolver-webpack": "^0.9.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.11.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-vue": "^4.0.0",
+    "node-sass": "^4.9.0",
+    "sass-loader": "^7.0.1",
+    "ts-loader": "^3.5.0",
+    "typescript": "^2.8.3",
+    "typescript-eslint-parser": "^15.0.0"
+  }
+}
