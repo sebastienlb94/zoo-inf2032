@@ -2,6 +2,7 @@ var configProject = require('../../config/project.js');
 var express = require('express');
 var router = express.Router();
 
+var AnimalManager = require('../managers/animalManager');
 var Animal = require('../models/animal');
 
 // Récupérer la liste de tous les animaux
@@ -12,34 +13,42 @@ router.get('/', function (req, res) {
         return;
     }
 
-    res.status(200).send(animals);
+    serializedAnimals = animals.map(animal => AnimalManager.serializeAnimal(animal));
+    res.status(200).send(serializedAnimals);
   });
 });
 
 // Créer un nouvel animal
 router.post('/', function (req, res) {
-  Animal.create({ name: req.body.name }, function (err, animal) {
+  const animal = {
+    name: req.body.name,
+    imageUrl: req.body.imageUrl,
+    class: req.body.class,
+  };
+
+  Animal.create(animal, function (err, animal) {
     if (err) {
       res.status(500).send(err);
     };
 
-    res.status(200).send(animal);
+    serializedAnimal = AnimalManager.serializeAnimal(animal)
+    res.status(200).send(serializedAnimal);
   });
 });
 
 // Récupérer un animal à partir de son ID
 router.get('/:id', function (req, res) {
-  res.status(200).send('TODO');
+  res.status(404).send('TODO');
 });
 
 // Modifie un animal à partir de son ID
 router.get('/:id', function (req, res) {
-  res.status(200).send('TODO');
+  res.status(404).send('TODO');
 });
 
 // Supprimer un animal à partir de son ID
 router.delete('/:id', function (req, res) {
-  res.status(200).send('TODO');
+  res.status(404).send('TODO');
 });
 
 module.exports = router;
