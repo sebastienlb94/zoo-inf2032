@@ -27,4 +27,19 @@ router.post('/', function (req, res) {
   });
 });
 
+// Récupérer un animal à partir de son ID
+router.get('/:id', function (req, res) {
+  res.status(200).send('TODO');
+});
+
+// Modifie un animal à partir de son ID
+router.get('/:id', function (req, res) {
+  res.status(200).send('TODO');
+});
+
+// Supprimer un animal à partir de son ID
+router.delete('/:id', function (req, res) {
+  res.status(200).send('TODO');
+});
+
 module.exports = router;
