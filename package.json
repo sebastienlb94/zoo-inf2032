@@ -1,0 +1,13 @@
+{
+  "name": "zoo",
+  "version": "0.1.0",
+  "description": "ZOO project for INF2032",
+  "author": "Sebastien SOTO <sebastiensotofr@gmail.com>",
+  "scripts": {
+    "start": "cd ./BackEnd && npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebastienlb94/zoo-inf2032.git"
+  }
+}
