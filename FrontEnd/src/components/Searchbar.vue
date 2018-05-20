@@ -1,6 +1,6 @@
 <template>
   <div class="searchbar">
-    <fa-icon :icon="['fal', 'search']" class="icon" />
+    <icon :icon="['far', 'search']" class="icon" />
     <input placeholder="Rechercher un animal">
   </div>
 </template>
@@ -18,6 +18,7 @@ export default Vue.extend({
     height: 48px;
     width: 40vw;
     max-width: 512px;
+    margin: 0 24px;
     background: #F1F2F6;
     border-radius: 4px;
     display: flex;
@@ -43,7 +44,7 @@ export default Vue.extend({
 
       &:focus {
         outline: none;
-        border: solid 2px #ff6b81;
+        border: solid 2px $main-color;
       }
     }
   }

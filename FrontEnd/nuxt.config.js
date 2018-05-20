@@ -1,5 +1,5 @@
 const pkg = require('./package.json');
-const path = require('path');
+const { resolve } = require('path');
 
 module.exports = {
   mode: 'spa',
@@ -18,17 +18,13 @@ module.exports = {
       { hid: 'description', name: 'description', content: pkg.description }
     ],
     link: [
-      { rel: 'icon', type: 'image/png', size: '512x512', href: '/icon.png' }
+      { rel: 'icon', type: 'image/png', size: '512x512', href: '/icon.png' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800' }
     ]
   },
 
   /* Customize the progress-bar color */
   loading: { color: '#FFFFFF' },
-
-  /* Global CSS */
-  css: [
-    '~/styles/theme.scss'
-  ],
 
   /* Plugins to load before mounting the App */
   plugins: [
@@ -40,7 +36,6 @@ module.exports = {
     '@nuxtjs/axios', // Doc: https://axios.nuxtjs.org/
     '@nuxtjs/pwa', // Doc: https://pwa.nuxtjs.org/
     'qonfucius-nuxt-fontawesome', // Doc: https://github.com/Qonfucius/nuxt-fontawesome/
-
     '~/modules/typescript.ts',
 
     /* Monitoring */
@@ -50,14 +45,18 @@ module.exports = {
 
   env: {
     analyticsId: process.env.ANALYTICS_ID, // For google analytics
-    instrumentationKey: process.env.INSTRUMENTATION_KEY // For application insights
+
+    instrumentationKey: process.env.INSTRUMENTATION_KEY, // For application insights
+
+    API_URL: 'http://localhost:3000',
+    FRONT_URL: 'http://localhost:8080'
   },
 
   /* Extend option for vue-analytics, see https://matteogabriele.gitbooks.io/vue-analytics/content */
   'google-analytics': {},
 
   'fontAwesome': {
-    // componentName: 'icon',
+    componentName: 'icon',
     packs: [
       { package: '@fortawesome/fontawesome-pro-solid' },
       { package: '@fortawesome/fontawesome-pro-regular' },
@@ -87,16 +86,38 @@ module.exports = {
           exclude: /(node_modules)/
         });
       }
+
+      // Load gloabll scss variable
+      const isVueRule = rule =>
+        rule.test.toString() === '/\\.vue$/';
+      const isSASSRule = rule =>
+        ['/\\.sass$/', '/\\.scss$/'].indexOf(rule.test.toString()) !== -1;
+
+      const scssLoader = {
+        loader: 'sass-resources-loader',
+        options: {
+          resources: resolve(__dirname, 'src/styles/theme.scss')
+        }
+      };
+
+      config.module.rules.forEach((rule) => {
+        if (isVueRule(rule)) {
+          rule.options.loaders.scss.push(scssLoader);
+        }
+        if (isSASSRule(rule)) {
+          rule.use.push(scssLoader);
+        }
+      });
     }
 
   },
 
   workbox: {
-    swDest: path.resolve(__dirname, 'static', 'sw.js')
+    swDest: resolve(__dirname, 'static', 'sw.js')
   },
 
   icon: {
-    iconSrc: path.resolve(__dirname, 'static', 'icon.png')
+    iconSrc: resolve(__dirname, 'static', 'icon.png')
   }
 
 };

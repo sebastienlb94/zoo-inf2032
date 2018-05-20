@@ -53,6 +53,10 @@ module.exports = {
       destructuring: 'any',
       ignoreReadBeforeAssign: true,
     }],
+
+    // For typescript
+    'no-unused-vars': 'off',
+    'no-undef': 'off'
   },
 
   settings: {

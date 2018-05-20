@@ -7,7 +7,7 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Searchbar from '~/components/Searchbar.vue';
+import Searchbar from '~/components/searchbar';
 
 export default Vue.extend({
   components: {
@@ -19,6 +19,7 @@ export default Vue.extend({
 <style lang="scss" scoped>
   .topbar {
     position: fixed;
+    z-index: 1000;
     top: 0;
     left: 0;
     right: 0;
@@ -26,7 +27,8 @@ export default Vue.extend({
     height: 64px;
     display: flex;
     align-items: center;
-    background: #fff;
+    justify-content: space-between;
+    background: $white-color;
     box-shadow: 0 -8px 24px 0 rgba(0, 0, 0, 0.3);
     overflow: hidden;
 
@@ -34,7 +36,7 @@ export default Vue.extend({
       $radius: 256px;
       width: $radius*2;
       height: $radius;
-      background: #ff6b81;
+      background: $main-color;
       border-radius: $radius;
       transform: translateX(-50%);
       transition: 0.4s;
