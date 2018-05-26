@@ -42,7 +42,7 @@ router.get('/:id', function (req, res) {
 });
 
 // Modifie un animal à partir de son ID
-router.get('/:id', function (req, res) {
+router.put('/:id', function (req, res) {
   res.status(404).send('TODO');
 });
 
