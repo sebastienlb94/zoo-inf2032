@@ -6,11 +6,11 @@ import config from '../../config.js';
 import { State } from './types';
 import { RootState } from '../types';
 
-const animalsEndpoint = `${config.API_URL}/animals`;
+const zoosEndpoint = `${config.API_URL}/zoos`;
 
 export const actions: ActionTree<State, RootState> = {
-  getAnimals: ({ commit }) => new Promise((resolve, reject) => {
-    axios.get(`${animalsEndpoint}`)
+  getZoos: ({ commit }) => new Promise((resolve, reject) => {
+    axios.get(`${zoosEndpoint}`)
       .then((response) => {
         resolve(response.data);
       })
@@ -18,8 +18,8 @@ export const actions: ActionTree<State, RootState> = {
         reject(err);
       });
   }),
-  getAnimal: ({ commit }, id) => new Promise((resolve, reject) => {
-    axios.get(`${animalsEndpoint}/${id}`)
+  getZoo: ({ commit }, id) => new Promise((resolve, reject) => {
+    axios.get(`${zoosEndpoint}/${id}`)
       .then((response) => {
         resolve(response.data);
       })
