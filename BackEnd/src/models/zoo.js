@@ -3,7 +3,7 @@ var Enclosure = require('./enclosure');
 
 var zooSchema = mongoose.Schema({
     name: String,
-    enclosures: [Enclosure],
+    enclosures: [Enclosure.schema],
     creationDate: { type: Date, default: Date.now },
 });
 

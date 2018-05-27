@@ -3,7 +3,7 @@ var Animal = require('./animal');
 
 var enclosureSchema = mongoose.Schema({
     name: String,
-    animals: [Animal],
+    animals: [Animal.schema],
     creationDate: { type: Date, default: Date.now },
 });
 
