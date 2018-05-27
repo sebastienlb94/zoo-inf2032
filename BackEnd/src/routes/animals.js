@@ -38,17 +38,25 @@ router.post('/', function (req, res) {
 
 // Récupérer un animal à partir de son ID
 router.get('/:id', function (req, res) {
-  res.status(404).send('TODO');
+  Animal.findById(req.params.id, function (err, animal) {
+    if (err) {
+        res.status(500).end();
+        return;
+    }
+
+    const serializedAnimal = AnimalManager.serializeAnimal(animal);
+    res.status(200).send(serializedAnimal);
+  });
 });
 
 // Modifie un animal à partir de son ID
 router.put('/:id', function (req, res) {
-  res.status(404).send('TODO');
+  res.status(401).send('TODO');
 });
 
 // Supprimer un animal à partir de son ID
 router.delete('/:id', function (req, res) {
-  res.status(404).send('TODO');
+  res.status(401).send('TODO');
 });
 
 module.exports = router;
