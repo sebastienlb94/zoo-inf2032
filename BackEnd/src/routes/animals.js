@@ -13,7 +13,7 @@ router.get('/', function (req, res) {
         return;
     }
 
-    serializedAnimals = animals.map(animal => AnimalManager.serializeAnimal(animal));
+    const serializedAnimals = animals.map(animal => AnimalManager.serializeAnimal(animal));
     res.status(200).send(serializedAnimals);
   });
 });
@@ -31,7 +31,7 @@ router.post('/', function (req, res) {
       res.status(500).send(err);
     };
 
-    serializedAnimal = AnimalManager.serializeAnimal(animal)
+    const serializedAnimal = AnimalManager.serializeAnimal(animal);
     res.status(200).send(serializedAnimal);
   });
 });
