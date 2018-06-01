@@ -18,6 +18,9 @@
             <div :style="{'background-image': `url(${animal.imageUrl})`}" :title="animal.name" class="animal-icon" />
           </div>
         </div>
+        <div class="data-container">
+          {{ enclosure.animals.length }} {{ enclosure.animals.length === 1 ? 'animal' : 'animaux' }} |
+        </div>
       </div>
 
       <div class="button-container">
@@ -68,7 +71,7 @@ export default Vue.extend({
           enclosures: [],
           creationDate: Date.now()
         };
-      }, 10000);
+      }, 1000);
       // this.$store.dispatch('Zoos/getZoo', 0).then((response) => {
       //   this.zoo = response;
       // });
@@ -150,7 +153,6 @@ export default Vue.extend({
         background-position: center center;
         background-repeat: no-repeat;
         border-radius: 2px;
-        opacity: 0.4;
         transition: 0.2s $easeOutSine;
       }
 
@@ -178,6 +180,9 @@ export default Vue.extend({
 
     .enclosure {
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
       width: 60vw;
       min-width: 480px;
       min-height: 128px;
@@ -261,7 +266,7 @@ export default Vue.extend({
             opacity: 0;
             font-size: 48px;
             color: $error-color;
-            transform: rotate(40deg);
+            transform: rotate(45deg);
             transition: 0.4s $easeOutSine;
           }
 
@@ -289,6 +294,12 @@ export default Vue.extend({
             }
           }
         }
+      }
+
+      .data-container {
+        padding: 8px 12px;
+        border-top: solid 1px #d1d8e0;
+        text-align: left;
       }
     }
 
@@ -321,6 +332,7 @@ export default Vue.extend({
         color: #d0d0d0;
         font-size: 24px;
         font-weight: bold;
+        transition: 0.2s $easeOutSine;
       }
       .text {
 
@@ -328,6 +340,11 @@ export default Vue.extend({
 
       &:hover {
         box-shadow: 0 4px 8px rgba($focus-color, 0.1);
+
+        .add-icon {
+          color: $focus-color;
+          border-color: $focus-color;
+        }
       }
     }
   }
