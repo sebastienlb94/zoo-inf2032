@@ -48,8 +48,8 @@ module.exports = {
 
     instrumentationKey: process.env.INSTRUMENTATION_KEY, // For application insights
 
-    API_URL: 'http://localhost:3000',
-    FRONT_URL: 'http://localhost:8080'
+    API_URL: 'https://zoo-inf2032.herokuapp.com',
+    FRONT_URL: 'https://zoo-inf2032.firebaseapp.com'
   },
 
   /* Extend option for vue-analytics, see https://matteogabriele.gitbooks.io/vue-analytics/content */

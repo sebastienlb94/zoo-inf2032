@@ -82,7 +82,7 @@ router.post('/:zooId', function (req, res) {
 
     const enclosure = {
       name: req.body.name,
-      enclosures: []
+      animals: []
     };
 
     Enclosure.create(enclosure, function (err, enclosure) {
@@ -149,7 +149,7 @@ router.post('/:zooId/:enclosureId', function (req, res) {
 
     const enclosure = {
       name: req.body.name,
-      enclosures: []
+      animals: []
     };
 
     Enclosure.create(enclosure, function (err, enclosure) {

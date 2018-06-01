@@ -7,7 +7,8 @@
     "dev-back": "cd ./BackEnd && npm start",
     "dev-front": "cd ./FrontEnd && npm run dev",
     "dev": "npm run dev-back | npm run dev-front",
-    "start": "cd ./BackEnd && npm i && npm start"
+    "start": "cd ./BackEnd && npm i && npm start",
+    "deploy": "cd ./FrontEnd && npm run build && firebase deploy"
   },
   "repository": {
     "type": "git",

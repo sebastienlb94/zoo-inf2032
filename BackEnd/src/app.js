@@ -23,6 +23,7 @@ require('./routes')(app); // set route
 
 app.get('/', function(req, res) {
     res.status(200).send('v0.1.0');
+    res.status(200).send('v0.1.1');
 });
 
 app.listen(process.env.PORT || 3000);

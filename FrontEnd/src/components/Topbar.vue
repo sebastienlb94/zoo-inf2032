@@ -1,15 +1,16 @@
 <template>
   <div class="topbar">
-    <div class="logo"/>
+    <router-link :to="{ name: 'index' }" class="logo">ZOO</router-link>
     <searchbar/>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import Searchbar from '~/components/searchbar';
+import Searchbar from '~/components/Searchbar.vue';
 
 export default Vue.extend({
+  name: 'Topbar',
   components: {
     Searchbar
   }
@@ -33,16 +34,25 @@ export default Vue.extend({
     overflow: hidden;
 
     .logo {
-      $radius: 256px;
+      $radius: 128px;
       width: $radius*2;
       height: $radius;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      text-align: right;
+      text-decoration: none;
+      font-size: 32px;
+      font-weight: bold;
+      padding: 0 32px;
+      color: #fefefe;
       background: $main-color;
       border-radius: $radius;
       transform: translateX(-50%);
       transition: 0.4s;
 
       &:hover {
-        $radius: 288px;
+        $radius: 160px;
         width: $radius*2;
         height: $radius;
         margin-right: -64px;
