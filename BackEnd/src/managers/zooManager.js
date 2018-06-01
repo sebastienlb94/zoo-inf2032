@@ -9,6 +9,17 @@ const ZooManager = {
     serializedZoo.creationDate = zoo.creationDate;
 
     return serializedZoo;
+  },
+
+  serializeEnclosure(enclosure) {
+    serializedEnclosure = {};
+
+    serializedEnclosure.id = enclosure._id;
+    serializedEnclosure.name = enclosure.name;
+    serializedEnclosure.animals = enclosure.animals,
+    serializedEnclosure.creationDate = enclosure.creationDate;
+
+    return serializedEnclosure;
   }
 };
 

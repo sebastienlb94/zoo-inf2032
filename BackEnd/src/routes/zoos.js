@@ -139,4 +139,40 @@ router.delete('/:zooId/:enclosureId', function (req, res) {
   });
 });
 
+// Ajouter un nouvel animal a l'enclos
+router.post('/:zooId/:enclosureId', function (req, res) {
+  Zoo.findById(req.params.zooId, function (err, zoo) {
+    if (err) {
+      res.status(500).end();
+      return;
+    }
+
+    const enclosure = {
+      name: req.body.name,
+      enclosures: []
+    };
+
+    Enclosure.create(enclosure, function (err, enclosure) {
+      if (err) {
+        res.status(500).send(err);
+      };
+
+      const enclosures = zoo.enclosures;
+      enclosures.push(enclosure);
+      zoo.set({
+        enclosures: enclosures
+      });
+      zoo.save((err, updatedZoo) => {
+        if (err) {
+          res.status(500).end();
+          return;
+        }
+
+        const serializedZoo = ZooManager.serializeZoo(updatedZoo);
+        res.status(200).send(serializedZoo);
+      });
+    });
+  });
+});
+
 module.exports = router;
