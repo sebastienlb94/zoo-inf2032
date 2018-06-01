@@ -1,0 +1,37 @@
+/*-------------------
+      Colors
+--------------------*/
+
+$white-color: #fefefe;
+$light-grey-color: #f6f5f1;
+$light-grey-border-color: #e4e1d8;
+$grey-color: #bfbfbf;
+$slate-grey-color: #626468;
+$red-color: #e30613;
+$green-color: #b8e994;
+$black-color: #232323;
+$dark-color: #262631;
+
+$blue-color: #74b9ff;
+
+$main-color: $green-color;
+$focus-color: $blue-color;
+$select-color: $blue-color;
+$error-color: $red-color;
+$background-color: $light-grey-color;
+$border-color: $light-grey-border-color;
+$text-color: $black-color;
+
+
+/*-------------------
+      Animations
+--------------------*/
+
+$easeOutSine: cubic-bezier(0.39, 0.575, 0.565, 1);
+$easeOutCubic: cubic-bezier(0.215, 0.61, 0.355, 1);
+$easeInOutBack: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+$easeOutBack: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+
+
+

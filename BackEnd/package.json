@@ -1,0 +1,23 @@
+{
+  "name": "zoo-back",
+  "version": "0.1.0",
+  "description": "ZOO project for INF2032",
+  "author": "Sebastien SOTO <sebastiensotofr@gmail.com>",
+  "engines": {
+    "node": "8.1.3"
+  },
+  "main": "app.js",
+  "scripts": {
+    "start": "node src/app.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.15.2",
+    "express-http-context": "^0.3.4",
+    "mongoose": "^4.9.4",
+    "request": "^2.81.0",
+    "uuid": "^3.0.1"
+  },
+  "license": "MIT"
+}
