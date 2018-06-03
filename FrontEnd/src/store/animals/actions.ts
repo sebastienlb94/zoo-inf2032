@@ -1,12 +1,10 @@
 import axios from 'axios';
 import { ActionTree } from 'vuex';
 
-import config from '../../config.js';
-
 import { State } from './types';
 import { RootState } from '../types';
 
-const animalsEndpoint = `${config.API_URL}/animals`;
+const animalsEndpoint = `${process.env.API_URL}/animals`;
 
 export const actions: ActionTree<State, RootState> = {
   getAnimals: ({ commit }) => new Promise((resolve, reject) => {

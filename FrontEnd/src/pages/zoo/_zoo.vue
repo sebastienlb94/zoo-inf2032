@@ -11,7 +11,8 @@
     <div v-if="!zoo" class="loader-ring"><div/><div/><div/><div/></div>
     <div v-else class="enclosure-container">
       <div v-for="enclosure in zoo.enclosures" :key="enclosure.id" :class="{ focus: focusedEnclosureId && focusedEnclosureId === enclosure.id }" class="enclosure" @click="focusEnclosure(enclosure)">
-        <input v-model="enclosure.name" :placeholder="`Enclos ${enclosure.id}`" :ref="`enclosure-${enclosure.id}`" class="enclosure-name">
+        <input v-model="enclosure.name" :placeholder="`Enclos ${enclosure.id}`" :ref="`enclosure-${enclosure.id}`" class="enclosure-name" @change="editEnclosure(enclosure)">
+        <icon :icon="['far', 'trash-alt']" class="delete-icon" @click="deleteEnclosure(enclosure)"/>
         <div class="animal-container">
           <div v-for="animal in enclosure.animals" :key="animal.id" class="animal" @click="removeAnimal(animal, enclosure)">
             <icon :icon="['fal', 'ban']" class="ban-icon" />
@@ -19,7 +20,7 @@
           </div>
         </div>
         <div class="data-container">
-          {{ enclosure.animals.length }} {{ enclosure.animals.length === 1 ? 'animal' : 'animaux' }} |
+          {{ enclosure.animals.length }} {{ enclosure.animals.length &lt;= 1 ? 'animal' : 'animaux' }} |
         </div>
       </div>
 
@@ -30,10 +31,13 @@
             Créer un nouvel enclos
           </div>
         </div>
-        <div class="new-animal enclosure" @click="createEnclosure">
-          <div class="add-icon">+</div>
-          <div class="text">
-            Créer un nouvel animal
+
+        <div v-if="zoo.enclosures" class="new-animal enclosure">
+          <div class="data">
+            {{ zoo.enclosures.length }} enclos
+          </div>
+          <div class="data">
+            {{ zoo.enclosures.reduce((acc, enclosure) => acc.concat(enclosure.animals), []).length }} {{ zoo.enclosures.reduce((acc, enclosure) => acc.concat(enclosure.animals), []).length &lt;= 1 ? 'animal' : 'animaux' }}
           </div>
         </div>
       </div>
@@ -84,25 +88,33 @@ export default Vue.extend({
       });
     },
     createEnclosure() {
-      const enclosure = {
-        name: '',
-        animals: [],
-        id: uuidv1()
-      };
-      this.zoo.enclosures.push(enclosure);
-      this.focusEnclosure(enclosure);
+      this.$store.dispatch('Zoos/createEnclosure', { zooId: this.zoo.id, name: '' }).then((response) => {
+        this.zoo = response;
+        this.focusEnclosure(response.enclosures[response.enclosures.length - 1]);
+      });
+    },
+    editEnclosure(enclosure) {
+      this.$store.dispatch('Zoos/editEnclosure', { zooId: this.zoo.id, enclosure: enclosure }).then((response) => {
+        this.zoo = response;
+      });
+    },
+    deleteEnclosure(enclosure) {
+      this.$store.dispatch('Zoos/deleteEnclosure', { zooId: this.zoo.id, enclosure: enclosure }).then((response) => {
+        this.zoo = response;
+      });
     },
     addAnimal(animalModel) {
       if (!this.focusedEnclosureId) { return; }
-      const animal = {
-        name: animalModel.name,
-        imageUrl: animalModel.imageUrl,
-        id: uuidv1()
-      };
-      this.focusedEnclosure.animals.push(animal);
+
+      this.$store.dispatch('Zoos/addAnimal', { zooId: this.zoo.id, enclosure: this.focusedEnclosure, animal: animalModel }).then((response) => {
+        this.zoo = response;
+        this.focusEnclosure(response.enclosures[response.enclosures.length - 1]);
+      });
     },
     removeAnimal(animal, enclosure) {
-      enclosure.animals = enclosure.animals.filter(a => a !== animal);
+      this.$store.dispatch('Zoos/deleteAnimal', { zooId: this.zoo.id, enclosure: this.focusedEnclosure, animal: animal }).then((response) => {
+        this.zoo = response;
+      });
     },
     focusEnclosure(enclosure) {
       this.focusedEnclosureId = enclosure.id;
@@ -212,7 +224,26 @@ export default Vue.extend({
         }
       }
 
-      .save-button {
+      .delete-icon {
+        position: absolute;
+        top: 4px;
+        right: 12px;
+        padding: 4px;
+        height: 24px;
+        width: 24px;
+        border: solid 2px transparent;
+        border-radius: 24px;
+        color: $red-color;
+        box-sizing: border-box;
+        cursor: pointer;
+        transition: 0.4s $easeOutSine;
+
+        &:hover {
+          border-color: $red-color;
+        }
+      }
+
+      .delete-button {
         position: absolute;
         top: 4px;
         right: 6px;
@@ -221,16 +252,16 @@ export default Vue.extend({
         height: 24px;
         line-height: 12px;
         color: $white-color;
-        background: $select-color;
-        border: solid 2px $select-color;
+        background: $red-color;
+        border: solid 2px $red-color;
         border-radius: 2px;
-        box-shadow: 0 2px 8px rgba($select-color, 0.2);
+        box-shadow: 0 2px 8px rgba($red-color, 0.2);
         cursor: pointer;
         transition: 0.4s $easeOutSine;
 
         &:hover {
           background: none;
-          color: $select-color;
+          color: $red-color;
         }
       }
 
