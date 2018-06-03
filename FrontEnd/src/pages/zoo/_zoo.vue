@@ -2,7 +2,7 @@
   <section class="container">
     <topbar />
 
-    <draggable v-model="animals" :options="{ group: { name: 'animal', pull: 'clone', put: false }}" class="animal-selector">
+    <draggable v-model="animals" :options="{ group: { name: 'animal', pull: 'clone', put: false }, sort: false}" class="animal-selector">
       <div v-for="animal in animals" :key="animal.id" :class="{ unfocus: !isSearched(animal) }" class="animal" @click="addAnimal(animal)">
         <div :style="{'background-image': `url(${animal.imageUrl})`}" :title="animal.name" class="animal-icon" />
       </div>
@@ -14,7 +14,7 @@
         <input v-model="enclosure.name" :placeholder="`Enclos ${enclosure.id}`" :ref="`enclosure-${enclosure.id}`" class="enclosure-name" @change="editEnclosure(enclosure)">
         <icon :icon="['far', 'trash-alt']" class="delete-icon" @click="deleteEnclosure(enclosure)"/>
 
-        <draggable v-model="enclosure.animals" :options="{ group: 'animal' }" class="animal-container">
+        <draggable v-model="enclosure.animals" :options="{ group: 'animal', ghostClass: 'animal-placeholder' }" class="animal-container">
           <div v-for="animal in enclosure.animals" :key="animal.id" :class="{ unfocus: !isSearched(animal) }" class="animal" @click="removeAnimal(animal, enclosure)">
             <icon :icon="['fal', 'ban']" class="ban-icon" />
             <div :style="{'background-image': `url(${animal.imageUrl})`}" :title="animal.name" class="animal-icon" />
@@ -124,11 +124,10 @@ export default Vue.extend({
 
       this.$store.dispatch('Zoos/addAnimal', { zooId: this.zoo.id, enclosure: this.focusedEnclosure, animal: animalModel }).then((response) => {
         this.zoo = response;
-        this.focusEnclosure(response.enclosures[response.enclosures.length - 1]);
       });
     },
     removeAnimal(animal, enclosure) {
-      this.$store.dispatch('Zoos/deleteAnimal', { zooId: this.zoo.id, enclosure: this.focusedEnclosure, animal: animal }).then((response) => {
+      this.$store.dispatch('Zoos/deleteAnimal', { zooId: this.zoo.id, enclosure: enclosure, animal: animal }).then((response) => {
         this.zoo = response;
       });
     },
@@ -143,6 +142,17 @@ export default Vue.extend({
 </script>
 
 <style lang="scss" scoped>
+.animal {
+  &.animal-placeholder {
+    opacity: 0.6;
+    background: #d1d8e0;
+
+    .ban-icon {
+      opacity: 0;
+    }
+  }
+}
+
 .container {
   min-height: 100vh;
   display: flex;
