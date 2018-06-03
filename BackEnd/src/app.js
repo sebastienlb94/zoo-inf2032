@@ -22,7 +22,6 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1", { useMongoCli
 require('./routes')(app); // set route
 
 app.get('/', function(req, res) {
-    res.status(200).send('v0.1.0');
     res.status(200).send('v0.1.1');
 });
 

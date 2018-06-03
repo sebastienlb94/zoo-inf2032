@@ -147,30 +147,30 @@ router.post('/:zooId/:enclosureId', function (req, res) {
       return;
     }
 
-    const enclosure = {
-      name: req.body.name,
-      animals: []
-    };
+    const enclosure = zoo.enclosures.find(enclosure => enclosure.id === req.params.enclosureId);
+    enclosure.animals = [...enclosure.animals, req.body.animal];
 
-    Enclosure.create(enclosure, function (err, enclosure) {
-      if (err) {
-        res.status(500).send(err);
-      };
+    zoo.save((err, updatedZoo) => {
+      const serializedZoo = ZooManager.serializeZoo(updatedZoo);
+      res.status(200).send(serializedZoo);
+    });
+  });
+});
 
-      const enclosures = zoo.enclosures;
-      enclosures.push(enclosure);
-      zoo.set({
-        enclosures: enclosures
-      });
-      zoo.save((err, updatedZoo) => {
-        if (err) {
-          res.status(500).end();
-          return;
-        }
+// Supprimer un animal de l'enclos
+router.delete('/:zooId/:enclosureId/:animalId', function (req, res) {
+  Zoo.findById(req.params.zooId, function (err, zoo) {
+    if (err) {
+      res.status(500).end();
+      return;
+    }
 
-        const serializedZoo = ZooManager.serializeZoo(updatedZoo);
-        res.status(200).send(serializedZoo);
-      });
+    const enclosure = zoo.enclosures.find(enclosure => enclosure.id === req.params.enclosureId);
+    enclosure.animals = enclosure.animals.filter(animal => animal.id != req.params.animalId);
+
+    zoo.save((err, updatedZoo) => {
+      const serializedZoo = ZooManager.serializeZoo(updatedZoo);
+      res.status(200).send(serializedZoo);
     });
   });
 });
