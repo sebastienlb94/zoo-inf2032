@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { ActionTree } from 'vuex';
 
+import { state } from './';
 import { State } from './types';
 import { RootState } from '../types';
 
@@ -69,5 +70,8 @@ export const actions: ActionTree<State, RootState> = {
       .catch((err) => {
         reject(err);
       });
+  }),
+  searchAnimal: ({ commit }, search) => new Promise((resolve, reject) => {
+    commit('search', search);
   })
 };

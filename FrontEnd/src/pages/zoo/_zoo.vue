@@ -2,25 +2,29 @@
   <section class="container">
     <topbar />
 
-    <div class="animal-selector">
-      <div v-for="animal in animals" :key="animal.id" class="animal" @click="addAnimal(animal)">
+    <draggable v-model="animals" :options="{ group: { name: 'animal', pull: 'clone', put: false }}" class="animal-selector">
+      <div v-for="animal in animals" :key="animal.id" :class="{ unfocus: !isSearched(animal) }" class="animal" @click="addAnimal(animal)">
         <div :style="{'background-image': `url(${animal.imageUrl})`}" :title="animal.name" class="animal-icon" />
       </div>
-    </div>
+    </draggable>
 
     <div v-if="!zoo" class="loader-ring"><div/><div/><div/><div/></div>
     <div v-else class="enclosure-container">
       <div v-for="enclosure in zoo.enclosures" :key="enclosure.id" :class="{ focus: focusedEnclosureId && focusedEnclosureId === enclosure.id }" class="enclosure" @click="focusEnclosure(enclosure)">
         <input v-model="enclosure.name" :placeholder="`Enclos ${enclosure.id}`" :ref="`enclosure-${enclosure.id}`" class="enclosure-name" @change="editEnclosure(enclosure)">
         <icon :icon="['far', 'trash-alt']" class="delete-icon" @click="deleteEnclosure(enclosure)"/>
-        <div class="animal-container">
-          <div v-for="animal in enclosure.animals" :key="animal.id" class="animal" @click="removeAnimal(animal, enclosure)">
+
+        <draggable v-model="enclosure.animals" :options="{ group: 'animal' }" class="animal-container">
+          <div v-for="animal in enclosure.animals" :key="animal.id" :class="{ unfocus: !isSearched(animal) }" class="animal" @click="removeAnimal(animal, enclosure)">
             <icon :icon="['fal', 'ban']" class="ban-icon" />
             <div :style="{'background-image': `url(${animal.imageUrl})`}" :title="animal.name" class="animal-icon" />
           </div>
-        </div>
+        </draggable>
+
         <div class="data-container">
-          {{ enclosure.animals.length }} {{ enclosure.animals.length &lt;= 1 ? 'animal' : 'animaux' }} |
+          <span v-if="search.length > 0">{{ enclosure.animals.filter(animal => isSearched(animal)).length }} / </span>
+          <span>{{ enclosure.animals.length }} {{ enclosure.animals.length &lt;= 1 ? 'animal' : 'animaux' }}</span>
+          <span> | </span>
         </div>
       </div>
 
@@ -32,12 +36,18 @@
           </div>
         </div>
 
-        <div v-if="zoo.enclosures" class="new-animal enclosure">
+        <div v-if="zoo.enclosures" class="zoo-data enclosure">
+          <div class="title">
+            Informations sur le zoo
+          </div>
           <div class="data">
             {{ zoo.enclosures.length }} enclos
           </div>
           <div class="data">
-            {{ zoo.enclosures.reduce((acc, enclosure) => acc.concat(enclosure.animals), []).length }} {{ zoo.enclosures.reduce((acc, enclosure) => acc.concat(enclosure.animals), []).length &lt;= 1 ? 'animal' : 'animaux' }}
+            {{ zooAnimals.length }} {{ zooAnimals.length &lt;= 1 ? 'animal' : 'animaux' }}
+          </div>
+          <div class="data">
+            {{ zooAnimals.filter(animal => isSearched(animal)).length }} {{ zooAnimals.filter(animal => isSearched(animal)).length &lt;= 1 ? 'animal trouvé' : 'animaux trouvés' }}
           </div>
         </div>
       </div>
@@ -50,10 +60,12 @@
 import Vue from 'vue';
 import uuidv1 from 'uuid/v1';
 
+import draggable from 'vuedraggable';
 import Topbar from '~/components/Topbar.vue';
 
 export default Vue.extend({
   components: {
+    draggable,
     Topbar
   },
   data() {
@@ -64,6 +76,10 @@ export default Vue.extend({
     };
   },
   computed: {
+    search() { return this.$store.state.Zoos.search; },
+    zooAnimals() {
+      return this.zoo.enclosures.reduce((acc, enclosure) => acc.concat(enclosure.animals), []);
+    },
     focusedEnclosure() {
       return this.zoo.enclosures.find((enclosure) => { return enclosure.id === this.focusedEnclosureId; });
     }
@@ -118,6 +134,9 @@ export default Vue.extend({
     },
     focusEnclosure(enclosure) {
       this.focusedEnclosureId = enclosure.id;
+    },
+    isSearched(animal) {
+      return animal.name.toLowerCase().trim().includes(this.search.toLowerCase().trim());
     }
   }
 });
@@ -138,7 +157,7 @@ export default Vue.extend({
     width: 48px;
     height: 100%;
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
-    overflow-y: scroll;
+    overflow-y: auto;
 
     .animal {
       display: flex;
@@ -149,6 +168,10 @@ export default Vue.extend({
       margin: 0;
       border-radius: 4px;
       cursor: pointer;
+
+      &.unfocus {
+        opacity: 0.2;
+      }
 
       .animal-icon {
         $size: 32px;
@@ -243,28 +266,6 @@ export default Vue.extend({
         }
       }
 
-      .delete-button {
-        position: absolute;
-        top: 4px;
-        right: 6px;
-        padding: 4px 12px;
-        font-size: 12px;
-        height: 24px;
-        line-height: 12px;
-        color: $white-color;
-        background: $red-color;
-        border: solid 2px $red-color;
-        border-radius: 2px;
-        box-shadow: 0 2px 8px rgba($red-color, 0.2);
-        cursor: pointer;
-        transition: 0.4s $easeOutSine;
-
-        &:hover {
-          background: none;
-          color: $red-color;
-        }
-      }
-
       .animal-container {
         display: flex;
         flex-wrap: wrap;
@@ -280,6 +281,10 @@ export default Vue.extend({
           border-radius: 4px;
           cursor: pointer;
           transition: 0.4s $easeOutSine;
+
+          &.unfocus {
+            opacity: 0.2;
+          }
 
           .ban-icon {
             position: absolute;
@@ -335,7 +340,7 @@ export default Vue.extend({
       min-width: 480px;
     }
 
-    .new-enclosure, .new-animal {
+    .new-enclosure, .zoo-data {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -370,6 +375,21 @@ export default Vue.extend({
           color: $focus-color;
           border-color: $focus-color;
         }
+      }
+
+      .title {
+        width: 100%;
+        padding: 4px 12px;
+        text-align: center;
+        font-weight: bold;
+        border-bottom: solid 1px #d0d0d0;
+      }
+
+      .data {
+        width: 100%;
+        padding: 2px 12px;
+        text-align: left;
+        box-sizing: border-box;
       }
     }
   }

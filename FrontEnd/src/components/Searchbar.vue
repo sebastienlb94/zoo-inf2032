@@ -1,14 +1,24 @@
 <template>
   <div class="searchbar">
     <icon :icon="['far', 'search']" class="icon" />
-    <input placeholder="Rechercher un animal">
+    <input v-model="search" placeholder="Rechercher un animal">
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
 export default Vue.extend({
-  name: 'Searchbar'
+  name: 'Searchbar',
+  data() {
+    return {
+      search: ''
+    };
+  },
+  watch: {
+    search() {
+      this.$store.dispatch('Zoos/searchAnimal', this.search);
+    }
+  }
 });
 </script>
 
