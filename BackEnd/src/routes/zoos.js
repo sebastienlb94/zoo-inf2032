@@ -108,6 +108,24 @@ router.post('/:zooId', function (req, res) {
   });
 });
 
+// Editer le nom d'un enclos
+router.put('/:zooId/:enclosureId', function (req, res) {
+  Zoo.findById(req.params.zooId, function (err, zoo) {
+    if (err) {
+      res.status(500).end();
+      return;
+    }
+
+    const enclosure = zoo.enclosures.find(enclosure => enclosure.id === req.params.enclosureId);
+    enclosure.name = req.body.enclosure.name;
+
+    zoo.save((err, updatedZoo) => {
+      const serializedZoo = ZooManager.serializeZoo(updatedZoo);
+      res.status(200).send(serializedZoo);
+    });
+  });
+});
+
 // Supprimer un enclos
 router.delete('/:zooId/:enclosureId', function (req, res) {
   Zoo.findById(req.params.zooId, function (err, zoo) {
@@ -141,15 +159,31 @@ router.delete('/:zooId/:enclosureId', function (req, res) {
 
 // Ajouter un nouvel animal a l'enclos
 router.post('/:zooId/:enclosureId', function (req, res) {
+  // Trouve le zoo avec l'id demandé.
   Zoo.findById(req.params.zooId, function (err, zoo) {
     if (err) {
       res.status(500).end();
       return;
     }
 
+    // Trouve l'enclos avec l'id demandé.
     const enclosure = zoo.enclosures.find(enclosure => enclosure.id === req.params.enclosureId);
+
+    // Liste toutes les categories presente dans l'enclos. On regroupe dans un tableau toutes les categories de l'animal puis on applatie ce tableau et on supprime les doublons.
+    const catogories = [...new Set(enclosure.animals.reduce((acc, animal) => acc.concat([animal.category_1, animal.category_2]), []))];
+
+    // Gestion des imcompatibilités. Si les animaux n'ont pas les memes classes on ne peut pas les ajouter au zoo
+    if (catogories.length > 0 && !(catogories.includes(req.body.animal.category_1) && catogories.includes(req.body.animal.category_2))) {
+      // Renvoie une erreur d'imcompatibilité
+      const serializedZoo = ZooManager.serializeZoo(zoo);
+      res.status(403).send(serializedZoo);
+      return;
+    }
+
+    // Ajoute l'animal a l'enclos.
     enclosure.animals = [...enclosure.animals, req.body.animal];
 
+    // Sauvegarde le zoo avec le nouvel animal
     zoo.save((err, updatedZoo) => {
       const serializedZoo = ZooManager.serializeZoo(updatedZoo);
       res.status(200).send(serializedZoo);
