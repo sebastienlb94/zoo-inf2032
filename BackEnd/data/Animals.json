@@ -1,0 +1,215 @@
+{
+  "animals": [
+    {
+      "name": "Cheval",
+      "class": "Mammifère",
+      "category_1": "Herbivore",
+      "category_2": "Terrestre",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/horse_1f40e.png"
+    },
+    {
+      "name": "Gorille",
+      "class": "Mammifère",
+      "category_1": "Herbivore",
+      "category_2": "Terrestre",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/gorilla_1f98d.png"
+    },
+    {
+      "name": "Loup",
+      "class": "Mammifère",
+      "category_1": "Carnivore",
+      "category_2": "Terrestre",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/wolf-face_1f43a.png"
+    },
+    {
+      "name": "Girafe",
+      "class": "Mammifère",
+      "category_1": "Herbivore",
+      "category_2": "Terrestre",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/giraffe-face_1f992.png"
+    },
+    {
+      "name": "Chameau",
+      "class": "Mammifère",
+      "category_1": "Herbivore",
+      "category_2": "Terrestre",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/dromedary-camel_1f42a.png"
+    },
+    {
+      "name": "Koala",
+      "class": "Mammifère",
+      "category_1": "Herbivore",
+      "category_2": "Terrestre",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/koala_1f428.png"
+    },
+    {
+      "name": "Tigre",
+      "class": "Mammifère",
+      "category_1": "Carnivore",
+      "category_2": "Terrestre",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/tiger_1f405.png"
+    },
+    {
+      "name": "Lion",
+      "class": "Mammifère",
+      "category_1": "Carnivore",
+      "category_2": "Terrestre",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/lion-face_1f981.png"
+    },
+    {
+      "name": "Elephant",
+      "class": "Mammifère",
+      "category_1": "Herbivore",
+      "category_2": "Terrestre",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/elephant_1f418.png"
+    },
+    {
+      "name": "Crocodile",
+      "class": "Reptile",
+      "category_1": "Carnivore",
+      "category_2": "Aquatique",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/crocodile_1f40a.png"
+    },
+    {
+      "name": "Lezard",
+      "class": "Reptile",
+      "category_1": "Insectivore",
+      "category_2": "Terrestre",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/lizard_1f98e.png"
+    },
+    {
+      "name": "Tortue",
+      "class": "Reptile",
+      "category_1": "Herbivore",
+      "category_2": "Aquatique",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/turtle_1f422.png"
+    },
+    {
+      "name": "Serpent",
+      "class": "Reptile",
+      "category_1": "Carnivore",
+      "category_2": "Terrestre",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/snake_1f40d.png"
+    },
+    {
+      "name": "Grenouille",
+      "class": "Reptile",
+      "category_1": "Insectivore",
+      "category_2": "Aquatique",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/frog-face_1f438.png"
+    },
+    {
+      "name": "Tirex",
+      "class": "Reptile",
+      "category_1": "Carnivore",
+      "category_2": "Terrestre",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/t-rex_1f996.png"
+    },
+    {
+      "name": "Pingouin",
+      "class": "Oiseau",
+      "category_1": "Carnivore",
+      "category_2": "Air",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/penguin_1f427.png"
+    },{
+      "name": "Canard",
+      "class": "Oiseau",
+      "category_1": "Carnivore",
+      "category_2": "Air",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/front-facing-baby-chick_1f425.png"
+    },{
+      "name": "Aigle",
+      "class": "Oiseau",
+      "category_1": "Carnivore",
+      "category_2": "Air",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/eagle_1f985.png      "
+    },{
+      "name": "Hibou",
+      "class": "Oiseau",
+      "category_1": "Carnivore",
+      "category_2": "Air",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/owl_1f989.png"
+    },{
+      "name": "Poule",
+      "class": "Oiseau",
+      "category_1": "Insectivore",
+      "category_2": "Terrestre",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/rooster_1f413.png"
+    },{
+      "name": "Chauve-Souris",
+      "class": "Oiseau",
+      "category_1": "Carnivore",
+      "category_2": "Air",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/bat_1f987.png"
+    },{
+      "name": "Dinde",
+      "class": "Oiseau",
+      "category_1": "Insectivore",
+      "category_2": "Terrestre",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/turkey_1f983.png"
+    },
+    {
+      "name": "Peruche",
+      "class": "Oiseau",
+      "category_1": "Herbivore",
+      "category_2": "Air",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/bird_1f426.png"
+    },
+    {
+      "name": "Requin",
+      "class": "Poisson",
+      "category_1": "Carnivore",
+      "category_2": "Aquatique",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/shark_1f988.png"
+    },
+    {
+      "name": "Dauphin",
+      "class": "Mammifère",
+      "category_1": "Carnivore",
+      "category_2": "Aquatique",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/dolphin_1f42c.png"
+    },
+    {
+      "name": "Baleine",
+      "class": "Mammifère",
+      "category_1": "Carnivore",
+      "category_2": "Aquatique",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/whale_1f40b.png"
+    },
+    {
+      "name": "Poisson Globe",
+      "class": "Poisson",
+      "category_1": "Herbivore",
+      "category_2": "Aquatique",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/blowfish_1f421.png"
+    },
+    {
+      "name": "Thon",
+      "class": "Poisson",
+      "category_1": "Herbivore",
+      "category_2": "Aquatique",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/fish_1f41f.png"
+    },
+    {
+      "name": "Crabe",
+      "class": "Poisson",
+      "category_1": "Herbivore",
+      "category_2": "Aquatique",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/crab_1f980.png"
+    },
+    {
+      "name": "Crevette",
+      "class": "Poisson",
+      "category_1": "Herbivore",
+      "category_2": "Aquatique",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/shrimp_1f990.png"
+    },
+    {
+      "name": "Pieuvre",
+      "class": "Poisson",
+      "category_1": "Carnivore",
+      "category_2": "Aquatique",
+      "imageUrl": "https://emojipedia-us.s3.amazonaws.com/thumbs/320/twitter/141/squid_1f991.png"
+    }
+  ]
+}
