@@ -14,7 +14,7 @@
         <input v-model="enclosure.name" :placeholder="`Enclos ${enclosure.id}`" :ref="`enclosure-${enclosure.id}`" class="enclosure-name" @change="editEnclosure(enclosure)">
         <icon :icon="['far', 'trash-alt']" class="delete-icon" @click="deleteEnclosure(enclosure)"/>
 
-        <draggable v-model="enclosure.animals" :options="{ group: 'animal', ghostClass: 'animal-placeholder' }" class="animal-container">
+        <draggable v-model="enclosure.animals" :options="{ group: 'animal', ghostClass: 'animal-placeholder' }" class="animal-container" @change="onChange($event, enclosure)">
           <div v-for="animal in enclosure.animals" :key="animal.id" :class="{ unfocus: !isSearched(animal) }" class="animal" @click="removeAnimal(animal, enclosure)">
             <icon :icon="['fal', 'ban']" class="ban-icon" />
             <div :style="{'background-image': `url(${animal.imageUrl})`}" :title="animal.name" class="animal-icon" />
@@ -25,6 +25,10 @@
           <span v-if="search.length > 0">{{ enclosure.animals.filter(animal => isSearched(animal)).length }} / </span>
           <span>{{ enclosure.animals.length }} {{ enclosure.animals.length &lt;= 1 ? 'animal' : 'animaux' }}</span>
           <span> | </span>
+          <span v-if="enclosure.animals.length">{{ enclosure.animals[0].category_1 }}</span>
+          <span v-if="enclosure.animals.length"> - </span>
+          <span v-if="enclosure.animals.length">{{ enclosure.animals[0].category_2 }}</span>
+          <span v-if="enclosure.animals.length"> | </span>
         </div>
       </div>
 
@@ -124,6 +128,9 @@ export default Vue.extend({
 
       this.$store.dispatch('Zoos/addAnimal', { zooId: this.zoo.id, enclosure: this.focusedEnclosure, animal: animalModel }).then((response) => {
         this.zoo = response;
+      }).catch((error) => {
+        console.log(error);
+        alert('Animaux incompatibles ! Ils ne peuvent pas être dans le même enclos.');
       });
     },
     removeAnimal(animal, enclosure) {
@@ -135,7 +142,18 @@ export default Vue.extend({
       this.focusedEnclosureId = enclosure.id;
     },
     isSearched(animal) {
-      return animal.name.toLowerCase().trim().includes(this.search.toLowerCase().trim());
+      return animal && animal.name && animal.name.toLowerCase().trim().includes(this.search.toLowerCase().trim());
+    },
+    onChange(event, enclosure) {
+      this.focusEnclosure(enclosure);
+
+      if (event.removed) {
+        this.removeAnimal(event.removed.element, enclosure);
+      }
+
+      if (event.added) {
+        this.addAnimal(event.added.element);
+      }
     }
   }
 });
@@ -165,7 +183,8 @@ export default Vue.extend({
     top: 64px;
     left: 0;
     width: 48px;
-    height: 100%;
+    height: calc(100% - 64px);
+    padding: 0 0 96px;
     box-shadow: -2px 0 8px rgba(0, 0, 0, 0.2);
     overflow-y: auto;
 
@@ -279,6 +298,7 @@ export default Vue.extend({
       .animal-container {
         display: flex;
         flex-wrap: wrap;
+        min-height: 48px;
 
         .animal {
           position: relative;
