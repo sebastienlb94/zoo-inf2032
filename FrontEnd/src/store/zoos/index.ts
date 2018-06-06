@@ -8,7 +8,7 @@ import { State } from './types';
 import { RootState } from '../types';
 
 export const state: State = {
-
+  search: ''
 };
 
 const namespaced: boolean = true;

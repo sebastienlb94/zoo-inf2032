@@ -27,7 +27,8 @@
     "uuid": "^3.2.1",
     "vee-validate": "^2.0.9",
     "vue-analytics": "^5.10.4",
-    "vue-application-insights": "^1.0.3"
+    "vue-application-insights": "^1.0.3",
+    "vuedraggable": "^2.16.0"
   },
   "devDependencies": {
     "@types/node": "^9.6.5",
