@@ -7,6 +7,8 @@ const AnimalManager = {
     serializedAnimal.name = animal.name;
     serializedAnimal.imageUrl = animal.imageUrl;
     serializedAnimal.class = animal.class;
+    serializedAnimal.category_1 = animal.category_1;
+    serializedAnimal.category_2 = animal.category_2;
 
     return serializedAnimal;
   }

@@ -18,12 +18,31 @@ router.get('/', function (req, res) {
   });
 });
 
+// Importer une liste nouveaux animaux
+router.post('/import', function (req, res) {
+  const animals = JSON.parse(req.body.animals).animals;
+
+  for (var i = 0, length = animals.length; i < length; i++) {
+    const animal = animals[i];
+
+    Animal.create(animal, function (err, animal) {
+      if (err) {
+        res.status(500).send(err);
+      };
+    });
+  }
+
+  res.status(200).send("Imported");
+});
+
 // Créer un nouvel animal
 router.post('/', function (req, res) {
   const animal = {
     name: req.body.name,
     imageUrl: req.body.imageUrl,
     class: req.body.class,
+    category_1: req.body.category_1,
+    category_2: req.body.category_2
   };
 
   Animal.create(animal, function (err, animal) {
